@@ -1,7 +1,7 @@
 'use client'
 import React, {useState} from 'react'
 import { Fugaz_One } from 'next/font/google';
-// import { baseRating, gradients } from '@/utils';
+import { baseRating, gradients } from '../utils/index';
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 const months = { 'January': 'Jan', 'February': 'Feb', 'March': 'Mar', 'April': 'Apr', 'May': 'May', 'June': 'Jun', 'July': 'Jul', 'August': 'Aug', 'September': 'Sept', 'October': 'Oct', 'November': 'Nov', 'December': 'Dec' }
@@ -12,10 +12,19 @@ const now = new Date()
 export default function Calendar(props) {
   const {demo, completeData, handleSetMood} = props
   const currMonth = now.getMonth()
+
   const [selectedMonth, setSelectMonth] = useState(Object.keys(months)[currMonth])
   const [selectedYear, setSelectYear] = useState(now.getFullYear())
+
   const numericMonth = monthsArr.indexOf(selectedMonth)
   const data = completeData?.[selectedYear]?.[numericMonth] || {}
+
+  const monthNow = new Date(selectedYear, Object.keys(months).indexOf(selectedMonth),1)
+  const firstDayOfMonth = monthNow.getDay()
+  const daysInMonth = new Date(selectedYear, Object.keys(selectedMonth).indexOf(selectedMonth)+1, 0).getDate()  //Agli month ka pehla day nikalo, usse pata lagega ki pichhli month ka last day kya tha
+
+  const daysToDisplay = firstDayOfMonth + daysInMonth
+  const numRows = (Math.floor(daysToDisplay/7)) + (daysToDisplay%7 ? 1:0)
 
   function handleIncrementMonth(val){
     //Meaning if hit last day of month, then move to the next month
@@ -46,7 +55,8 @@ export default function Calendar(props) {
           {selectedMonth},{selectedYear}
         </p>
 
-        <button onClick={handleIncrementMonth(+1)}
+        <button onClick={()=>
+          handleIncrementMonth(+1)}
         className='ml-auto text-lime-600 text-lg sm:text-xl duration:200 hover:opacity-60'
         >
           <i className='fa-solid fa-circle-chevron-right'/>
@@ -59,10 +69,10 @@ export default function Calendar(props) {
             <div key={rowIndex} className='grid grid-cols-7 gap-1'>
               {
                 dayList.map((dayofWeek, dayOfWeekIndex)=>{
-                  let dayIndex = (rowIndex*7) + dayOfWeekIndex - (firsDayOfMonth-1) //Day index means WHAT IS THE DAY pf that day, Sunday ke liye 0, Monday ke liye 1, etc.
+                  let dayIndex = (rowIndex*7) + dayOfWeekIndex - (firstDayOfMonth-1) //Day index means WHAT IS THE DAY pf that day, Sunday ke liye 0, Monday ke liye 1, etc.
 
                   let dayDisplay = dayIndex>daysInMonth? false:
-                  (row===0 && dayOfWeekIndex<firstDayofMonth)?false:true
+                  (row===0 && dayOfWeekIndex < firstDayOfMonth)?false:true
 
                   let isToday = dayIndex === now.getDate()
 

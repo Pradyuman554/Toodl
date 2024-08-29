@@ -59,7 +59,7 @@ export default function Calendar(props) {
             <div key={rowIndex} className='grid grid-cols-7 gap-1'>
               {
                 dayList.map((dayofWeek, dayOfWeekIndex)=>{
-                  let dayIndex = (rowIndex*7) + dayOfWeekIndex - (firsDayOfMonth-1)
+                  let dayIndex = (rowIndex*7) + dayOfWeekIndex - (firsDayOfMonth-1) //Day index means WHAT IS THE DAY pf that day, Sunday ke liye 0, Monday ke liye 1, etc.
 
                   let dayDisplay = dayIndex>daysInMonth? false:
                   (row===0 && dayOfWeekIndex<firstDayofMonth)?false:true
@@ -75,6 +75,13 @@ export default function Calendar(props) {
                   let color = demo?
                   gradients.green[baseRating[dayIndex]] : dayIndex in data?
                   gradients.green[data[dayIndex]] : 'white'
+                
+                  return (
+                    <div style={{background:color}} className={'text-xs sm:text-sm border border-solid p-2 items-center gap-2 justify-between rounded-lg '+(isToday?'border-green-600':'text-white')} key={dayOfWeekIndex}>
+                      <p>{dayIndex}</p>
+                    </div>
+                  )
+                
                 })
               }
             </div>

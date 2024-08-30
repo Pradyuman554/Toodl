@@ -30,6 +30,31 @@ export function AuthProvider({children}){
     }
 
     useEffect(()=>{
-        
+        const unsubscribe = onAuthStateChanged(auth, async user=>{
+            try{
+                setLoading(true)
+                setCurrentUser(user)
+                if(!user){
+                    console.log('No User Found')
+                    return
+                } 
+                
+                console.log('Fetching User Data')
+                const docRef = doc(db, 'users', user.uid)
+                const docSnap = await getDoc(docRef)
+                let firebaseData = {}
+
+                if(docSnap.exists()){
+                    console.log('Found User Data')
+                    firebaseData = docSnap.data()
+                }
+
+            }
+            catch(error){
+
+            }
+
+        }
+    )
     })
 }

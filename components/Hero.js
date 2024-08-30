@@ -2,6 +2,8 @@ import { Fugaz_One, Inter } from "next/font/google";
 import React from 'react';
 import Button from './Button';
 import Calendar from './Calendar';
+import CallToAction from './CallToAction';
+import { Link } from 'next/link';
 const fugaz = Fugaz_One({ subsets: ["latin"], weight:['400'] });
 
 export default function Hero() {
@@ -15,11 +17,7 @@ export default function Hero() {
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl text-center w-full mx-auto max-w-[600px]">Track and record your mood and notice your emotion patterns <span className="font-semibold">throughout the year..</span></p>
     
-        <div className="grid grid-cols-2 gap-4 mx-auto w-fit">
-            <Button text="Sign Up"/>
-            <Button text="Login" dark/>
-        </div>
-
+        <CallToAction/>
         <Calendar/>
     </div>
   )

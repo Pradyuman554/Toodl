@@ -3,7 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import Head from './head';
 import {AuthProvider} from '../context/AuthContext';
-import Logout from '@/components/Logout';
+import Logout from '../components/Logout';
 
 const sans = Open_Sans({ subsets: ["latin"] });
 const fugaz = Fugaz_One({ subsets: ["latin"], weight:['400'] });
@@ -16,7 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const header = (
     <header className="flex gap-4 p-4 sm:p-8 items-center justify-between">
-      <Link>
+      <Link href={'/'}>
         <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>Toodl</h1>
       </Link>
       <Logout/>

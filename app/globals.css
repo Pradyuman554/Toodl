@@ -5,3 +5,12 @@
 .textGradient{
     color: #65A30D;
 }
+
+.greenShadow{
+    box-shadow: 3px 3px 1px 1px rgb(233, 250, 230);
+}
+
+.greenShadow:hover{
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 1px 1px rgb(233, 250, 230);
+}

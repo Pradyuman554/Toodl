@@ -119,8 +119,28 @@ export default function Dashboard(){
         </div>
 
         <h4 className={'text-5xl sm:text-6xl md:text-7xl text-center '+fugaz.className}>
-          
+          How good do you <span className='textGradient'>feel</span> today?
         </h4>
+        <div className="flex items-stretch flex-wrap gap-4">
+          {
+            Object.keys(moods).map((mood, moodIndex)=>{
+              return (
+                <button onClick={()=>{
+                  const currentMoodValue = moodIndex + 1
+                  handleSetMood(currentMoodValue)
+                }}
+                className = {'p-4 px-5 rounded-2xl greenShadow duration-200 bg-indigo-50 hover:bg-indigo-100 text-center flex flex-col items-center gap-2 flex-1'} key = {moodIndex}
+                >
+                  <p className='text-4xl sm:text-5xl md:text-6xl'>{moods[mood]}
+                  </p>
+                  <p className={'text-green-500 text-xs  sm:text-sm '}>
+
+                  </p>
+                </button>
+              )
+            })
+          }
+        </div>
       </div>
     )
 }

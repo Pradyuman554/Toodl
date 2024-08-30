@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { doc, getDoc} from 'firebase/firestore'
 import React, {useContext, useState, useEffect} from 'react'
 
-const AuthContext = React.createConect()
+const AuthContext = React.createContext()
 
 export function useAuth(){
     return useContext(AuthContext)
@@ -49,12 +49,35 @@ export function AuthProvider({children}){
                     firebaseData = docSnap.data()
                 }
 
+                setUserDataObj(firebaseData)
             }
-            catch(error){
-
+            catch(err){
+                console.log(err.message)
             }
-
+            finally{
+                setLoading(false)
+            }
         }
     )
-    })
+    return unsubscribe
+    }
+    ,
+    []
+)
+
+    const value = {
+        currentUser,
+        userDataObj,
+        setUserDataObj,
+        signup,
+        logout,
+        login,
+        loading
+    }
+
+    return (
+        <AuthContext.Provider value={value}>
+            {children}
+        </AuthContext.Provider>
+    )
 }

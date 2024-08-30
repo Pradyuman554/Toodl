@@ -2,7 +2,7 @@ import { Fugaz_One, Open_Sans } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Head from './head';
-import { AuthProvider } from '@/context/AuthContext';
+import {AuthProvider} from '../context/AuthContext';
 import Logout from '@/components/Logout';
 
 const sans = Open_Sans({ subsets: ["latin"] });

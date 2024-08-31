@@ -131,16 +131,16 @@ export default function Dashboard(){
                 }}
                 className = {'p-4 px-5 rounded-2xl greenShadow duration-200 bg-indigo-50 hover:bg-indigo-100 text-center flex flex-col items-center gap-2 flex-1'} key = {moodIndex}
                 >
-                  <p className='text-4xl sm:text-5xl md:text-6xl'>{moods[mood]}
-                  </p>
+                  <p className='text-4xl sm:text-5xl md:text-6xl'>{moods[mood]}</p>
                   <p className={'text-green-500 text-xs  sm:text-sm '}>
-
+                    {mood}
                   </p>
                 </button>
               )
             })
           }
         </div>
+        <Calendar completeData={data} handleSetMood={handleSetMood}/>
       </div>
     )
 }

@@ -43,7 +43,7 @@ export default function Login() {
         isRegistered?'Register' : 'Login'
       }</h3>
 
-      <p>You're one step away</p>
+      <p>You&apos;re one step away</p>
       
       <input className='max-w-[400px] w-full mx-auto border duration-200 border-solid border-lime-600 hover:border-green-700 px-3 py-2 sm:py-3 rounded-full outline-none' placeholder='Email' value={email} onChange={(e)=>{
         setEmail(e.target.value)

@@ -5,19 +5,34 @@ import { baseRating, gradients } from '../utils/index';
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 const months = { 'January': 'Jan', 'February': 'Feb', 'March': 'Mar', 'April': 'Apr', 'May': 'May', 'June': 'Jun', 'July': 'Jul', 'August': 'Aug', 'September': 'Sept', 'October': 'Oct', 'November': 'Nov', 'December': 'Dec' }
-const dayList = ['Sunday','Monday','Tuesday','Wednesday','Thursday', 'Friday','Saturday']
 const monthsArr = Object.keys(months)
-const now = new Date()
+const dayList = ['Sunday','Monday','Tuesday','Wednesday','Thursday', 'Friday','Saturday']
 
 export default function Calendar(props) {
   const {demo, completeData, handleSetMood} = props
+  const now = new Date()
   const currMonth = now.getMonth()
 
-  const [selectedMonth, setSelectMonth] = useState(Object.keys(months)[currMonth])
-  const [selectedYear, setSelectYear] = useState(now.getFullYear())
+  const [selectedMonth, setSelectedMonth] = useState(Object.keys(months)[currMonth])
+  const [selectedYear, setSelectedYear] = useState(now.getFullYear())
 
   const numericMonth = monthsArr.indexOf(selectedMonth)
   const data = completeData?.[selectedYear]?.[numericMonth] || {}
+
+  function handleIncrementMonth(val){
+    //Meaning if hit last day of month, then move to the next month
+    
+    //This condition if we want to go to previous month
+    if(numericMonth + val < 0){
+      setSelectedYear(curr => curr-1)
+      setSelectedMonth(monthsArr[monthsArr.length-1])
+    }
+    else if(numericMonth + val>11){
+      setSelectedYear(curr=> curr+1)
+      setSelectedMonth(monthsArr[0])
+    }
+    else  setSelectedMonth(monthsArr[numericMonth+val])
+  }
 
   const monthNow = new Date(selectedYear, Object.keys(months).indexOf(selectedMonth),1)
   const firstDayOfMonth = monthNow.getDay()
@@ -25,21 +40,6 @@ export default function Calendar(props) {
 
   const daysToDisplay = firstDayOfMonth + daysInMonth
   const numRows = (Math.floor(daysToDisplay/7)) + (daysToDisplay%7 ? 1:0)
-
-  function handleIncrementMonth(val){
-    //Meaning if hit last day of month, then move to the next month
-    
-    //This condition if we want to go to previous month
-    if(numericMonth + val < 0){
-      setSelectYear(curr => curr-1)
-      setSelectMonth(monthsArr[monthsArr.length-1])
-    }
-    else if(numericMonth + val>11){
-      setSelectYear(curr=> curr+1)
-      setSelectMonth(monthsArr[0])
-    }
-    else  setSelectMonth(monthsArr[numericMonth+val])
-  }
 
   return (
     <div className = 'flex flex-col gap-2'>

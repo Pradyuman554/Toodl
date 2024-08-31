@@ -10,7 +10,7 @@ export default function Hero() {
   return (
     <div className="py-4 md:py-12 flex flex-col gap-4 sm:gap-8">
       <h1 className={`text-5xl sm:text-6xl md:text-7xl text-center `+fugaz.className}>
-        <span className="textGradient">Toodle </span>
+        <span className="textGradient">Toodl </span>
         your thoughts and
         <span className="textGradient"> track </span> 
         your daily mood..

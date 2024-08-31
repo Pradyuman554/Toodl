@@ -46,7 +46,7 @@ export default function Login() {
       <p>You're one step away</p>
       
       <input className='max-w-[400px] w-full mx-auto border duration-200 border-solid border-lime-600 hover:border-green-700 px-3 py-2 sm:py-3 rounded-full outline-none' placeholder='Email' value={email} onChange={(e)=>{
-        setEmail(e.target.vakye)
+        setEmail(e.target.value)
       }}/>
       
       <input className='max-w-[400px] w-full mx-auto border border-solid border-lime-600 px-4 py-2 sm:py-3 rounded-full outline-none' placeholder='Password' type='password' value={password} onChange={(e)=>{

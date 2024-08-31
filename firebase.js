@@ -2,6 +2,8 @@ import {initializeApp} from 'firebase/app'; //Initialize App
 import {getAuth} from 'firebase/auth'   //Get authentication
 import {getFirestore} from 'firebase/firestore' //Get Database
 
+console.log(process.env.NEXT_PUBLIC_API_KEY)
+
 const firebaseConfig = {
     apiKey : process.env.NEXT_PUBLIC_API_KEY,
     authDomain : process.env.NEXT_PUBLIC_AUTH_DOMAIN,

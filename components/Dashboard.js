@@ -41,40 +41,75 @@ export default function Dashboard(){
     time_remaining: `${23 - now.getHours()}H ${60-now.getMinutes()}M`,  //H:hours, M:Months, ITS JUST A STRING with those JAVASCRIPT inside the {curly braces}
   }
 
-  async function handleSetMood(mood){ //When we perform an action, like input the mood for today, ITS GONNA HAVE PROPERTIES OF TODAY'S DATE. We just destructure that inside this function so that we can MAP THE DAYS WITH THE RESPECTIVE EMOTIONS
-    const day = now.getDate()
-    const month = now.getMonth()
-    const year = now.getFullYear()
+  // async function handleSetMood(mood){ //When we perform an action, like input the mood for today, ITS GONNA HAVE PROPERTIES OF TODAY'S DATE. We just destructure that inside this function so that we can MAP THE DAYS WITH THE RESPECTIVE EMOTIONS
+  //   const day = now.getDate()
+  //   const month = now.getMonth()
+  //   const year = now.getFullYear()
 
-    try{
-      const newData = { ...userDataObj }
-      if(!newData?.[year]){
-        newData[year] = {}
-      }
+  //   try{
+  //     const newData = { ...userDataObj }
+  //     if(!newData?.[year]){
+  //       newData[year] = {}
+  //     }
 
-      if(!newData?.[year]?.[month]){
-        newData[year][month] = {}
-      }
+  //     if(!newData?.[year]?.[month]){
+  //       newData[year][month] = {}
+  //     }
       
-      newData[year][month][day] = mood  //Map the data
+  //     newData[year][month][day] = mood  //Map the data
 
-      setData(newData) // update the global state
-      setUserDataObj(newData) // update firebase
+  //     setData(newData) // update the global state
+  //     setUserDataObj(newData) // update firebase
 
-      const docRef = doc(db, 'users', currentUser.uid)
-      // const res = await setDoc(docRef, {
-        await setDoc(docRef, {  //Both of the above and lower one work
-        [year] : {
-          [month] : {
-            [day] : mood
+  //     const docRef = doc(db, 'users', currentUser.uid)
+  //     // const res = await setDoc(docRef, {
+  //       await setDoc(docRef, {  //Both of the above and lower one work
+  //       [year] : {
+  //         [month] : {
+  //           [day] : mood
+  //         }
+  //       }
+  //     }, {merge: true})
+  //   }
+  //   catch(err){
+  //     console.log('Failed to set data: ', err.message)
+  //   }
+  // }
+
+  async function handleSetMood(mood) {
+    const day = now.getDate();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+  
+    try {
+      const newData = { ...userDataObj };
+      if (!newData[year]) {
+        newData[year] = {};
+      }
+  
+      if (!newData[year][month]) {
+        newData[year][month] = {};
+      }
+  
+      newData[year][month][day] = mood;  // Map the data
+  
+      const docRef = doc(db, 'users', currentUser.uid);
+      await setDoc(docRef, {
+        [year]: {
+          [month]: {
+            [day]: mood
           }
         }
-      }, {merge: true})
-    }
-    catch(err){
-      console.log('Failed to set data: ', err.message)
+      }, { merge: true });
+  
+      // Update the state only after successfully writing to Firestore
+      setData(newData);
+      setUserDataObj(newData);
+    } catch (err) {
+      console.log('Failed to set data: ', err.message);
     }
   }
+  
 
     const moods = {
       'Bruh': '😭',
